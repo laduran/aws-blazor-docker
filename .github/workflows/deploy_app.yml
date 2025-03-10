@@ -11,13 +11,13 @@ on:
 
 env:
   # NOTE this is all wrong, was copied from another project
-  AWS_REGION: us-east-1                      # set this to your preferred AWS region, e.g. us-west-1
-  ECR_REPOSITORY: bakeoff                    # set this to your Amazon ECR repository name
-  ECS_SERVICE: devBakeoff-with-alb                   # set this to your Amazon ECS service name
-  ECS_CLUSTER: devBakeoff                       # set this to your Amazon ECS cluster name
+  AWS_REGION: us-west-2                      # set this to your preferred AWS region, e.g. us-west-1
+  ECR_REPOSITORY: blazorapp                    # set this to your Amazon ECR repository name
+  ECS_SERVICE: aws_blazorapp-with-alb                   # set this to your Amazon ECS service name
+  ECS_CLUSTER: dev_blazorapp                       # set this to your Amazon ECS cluster name
   ECS_TASK_DEFINITION: front-end/.aws/task-definition.json # set this to the path to your Amazon ECS task definition
                                              # file, e.g. .aws/task-definition.json
-  CONTAINER_NAME: bakeoff-dev               # set this to the name of the container in the
+  CONTAINER_NAME: blazorapp               # set this to the name of the container in the
                                              # containerDefinitions section of your task definition
 
 permissions:
