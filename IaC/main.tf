@@ -27,11 +27,10 @@ resource "aws_instance" "web_server" {
 # ECR?
 # Fargate cluster (also ECS cluster)
 # VPC
-# Subnet
+# Subnets
 # Route Table
 # Load balancer?
 # RDS for database configured to PostgreSQL instace.
 # S3 bucket for storing static files
 
 # Route 53 settings for domain  <-- This doesn't need to be managed through Terraform
-
