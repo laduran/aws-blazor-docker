@@ -1,0 +1,50 @@
+name: Build and Test
+# You can test this workflow locally by installing act using choco install act-cli -y
+# and running `act -P ubuntu-latest=nektos/act-environments-ubuntu:18.04`
+# This will run the workflow inside a Docker container that matches the GitHub Actions Ubuntu 18.04 environment.
+# NOTE: The `act` tool is not officially supported by GitHub, and may not provide an exact match to the GitHub Actions environment.
+# ALSO, the ubuntu environment is about an 18GB download. So the first time run, will take a while.
+on:
+  # push:
+  #   branches:
+  #     - develop
+  pull_request:
+    branches:
+      - deploy
+  workflow_dispatch:
+  
+jobs:
+  build-and-test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install.NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0'
+
+      - name: Restore NuGet packages
+        run: dotnet restore BakeOff.sln
+        working-directory: front-end
+
+      - name: Build
+        run: dotnet build -c Release BlazorWebApp.sln --verbosity normal
+        working-directory: front-end
+
+      # - name: Run tests
+      #   run: dotnet test --verbosity normal --logger trx
+      #   working-directory: front-end/tests/BakeOff.Core.Tests
+
+      # Create a report of the test results
+      # TODO: This doesn't work yet.
+      # - name: Create Test Report
+      #   uses: dorny/test-reporter@v1.9.1
+      #   if: always()
+      #   with:
+      #     name: DotNET Tests
+      #     path: "**/*.trx"                            
+      #     reporter: dotnet-trx
+      #     max-annotations: 11
